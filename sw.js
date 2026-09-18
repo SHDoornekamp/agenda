@@ -3,7 +3,7 @@
  * Verhoog CACHE bij elke wijziging aan index.html of config.js,
  * anders blijven toestellen de oude versie tonen.
  */
-var CACHE = "agenda-v1";
+var CACHE = "agenda-v2";
 
 var SHELL = [
   "./",
