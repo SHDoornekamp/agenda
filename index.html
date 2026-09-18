@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15171C">
+<title>Agenda</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E7E9EE; --panel:#F2F3F6; --ink:#171A20; --soft:#5A6170;
+    --faint:#8A91A0; --rule:#C7CCD7; --rule-strong:#AEB5C3;
+    --marigold:#B8820E; --rust:#A3402A; --sage:#5E7A64; --focus:#2F5FD0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#15171C; --panel:#1C1F26; --ink:#E7E9EE; --soft:#99A0AE;
+      --faint:#6C7382; --rule:#2D323C; --rule-strong:#444B58;
+      --marigold:#E3B14C; --rust:#D9795D; --sage:#8CAC92; --focus:#7BA0F0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#15171C; --panel:#1C1F26; --ink:#E7E9EE; --soft:#99A0AE;
+    --faint:#6C7382; --rule:#2D323C; --rule-strong:#444B58;
+    --marigold:#E3B14C; --rust:#D9795D; --sage:#8CAC92; --focus:#7BA0F0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
+    font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:2px;}
+  [hidden]{display:none !important;}
+  .wrap{max-width:46rem;margin:0 auto;padding:1.5rem 1.25rem 5rem;}
+
+  /* ---- auth ---- */
+  .auth{max-width:22rem;margin:0 auto;padding:4rem 1.25rem;}
+  .auth h1{
+    font-family:"Fraunces",Georgia,serif;font-weight:600;
+    font-size:2.25rem;line-height:1;margin:0 0 .4rem;
+    letter-spacing:-.015em;
+  }
+  .auth p{color:var(--soft);font-size:.9375rem;margin:0 0 1.75rem;}
+  .field{display:block;margin-bottom:.85rem;}
+  .field span{display:block;font-size:.8125rem;color:var(--soft);margin-bottom:.25rem;}
+  .field input{
+    width:100%;font:inherit;color:var(--ink);background:var(--panel);
+    border:1px solid var(--rule);border-radius:3px;padding:.55rem .65rem;
+  }
+  .btn{
+    width:100%;border:1px solid var(--rule-strong);border-radius:3px;
+    padding:.6rem 1rem;margin-top:.5rem;
+  }
+  .btn:hover{background:var(--panel);}
+  .btn--primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .btn--primary:hover{opacity:.88;background:var(--ink);}
+  .auth__alt{margin-top:1.25rem;font-size:.875rem;color:var(--soft);text-align:center;}
+  .auth__alt button{text-decoration:underline;padding:0;}
+  .msg{
+    margin:1rem 0 0;padding:.6rem .75rem;font-size:.8125rem;
+    background:var(--panel);border-left:3px solid var(--rust);color:var(--soft);
+  }
+  .msg--ok{border-left-color:var(--sage);}
+
+  /* ---- masthead ---- */
+  .masthead{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule);flex-wrap:wrap;
+  }
+  .masthead h2{
+    margin:0;font-family:"Fraunces",Georgia,serif;font-weight:400;
+    font-size:1.375rem;
+  }
+  .nav{display:flex;align-items:center;gap:.25rem;}
+  .nav button{padding:.3rem .55rem;border-radius:3px;color:var(--soft);font-size:.875rem;}
+  .nav button:hover{color:var(--ink);background:var(--panel);}
+  .nav__today{border:1px solid var(--rule-strong);padding:.3rem .7rem;}
+
+  .syncbar{
+    display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+    padding:.5rem 0;font-size:.75rem;color:var(--faint);
+    border-bottom:1px solid var(--rule);
+  }
+  .syncbar__dot{
+    width:.4rem;height:.4rem;border-radius:50%;background:var(--sage);
+    display:inline-block;margin-right:.4rem;vertical-align:.05rem;
+  }
+  .syncbar--wait .syncbar__dot{background:var(--marigold);}
+  .syncbar--off .syncbar__dot{background:var(--rule-strong);}
+  .syncbar button{font-size:.75rem;color:var(--faint);text-decoration:underline;padding:0;}
+  .syncbar button:hover{color:var(--ink);}
+
+  /* ---- day ---- */
+  .day{padding:2.25rem 0 1.25rem;}
+  .day__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;}
+  .day__name{
+    margin:0;font-family:"Fraunces",Georgia,serif;font-weight:600;
+    font-size:clamp(2.25rem,9vw,3.5rem);line-height:.95;letter-spacing:-.015em;
+  }
+  .day__date{margin:.4rem 0 0;color:var(--soft);font-size:.9375rem;}
+  .day__count{flex:none;text-align:right;color:var(--soft);font-size:.8125rem;padding-bottom:.3rem;}
+  .day--today .day__name{
+    border-bottom:4px solid var(--marigold);display:inline-block;padding-bottom:.08em;
+  }
+
+  /* ---- tasks ---- */
+  .tasks{list-style:none;margin:0;padding:0;}
+  .task{
+    border-top:1px solid var(--rule);display:grid;
+    grid-template-columns:auto 1fr auto;align-items:baseline;gap:.7rem;padding:.7rem 0;
+  }
+  .tasks .task:last-child{border-bottom:1px solid var(--rule);}
+  .task__check{
+    width:1.05rem;height:1.05rem;border:1.5px solid var(--rule-strong);
+    border-radius:50%;flex:none;align-self:center;padding:0;
+    transition:background .16s ease,border-color .16s ease;
+  }
+  .task__check:hover{border-color:var(--ink);}
+  .task__text{text-align:left;padding:0;word-break:break-word;transition:color .16s ease;}
+  .task__when{color:var(--soft);font-size:.8125rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .task--done .task__check{background:var(--sage);border-color:var(--sage);}
+  .task--done .task__text{color:var(--faint);text-decoration:line-through;}
+  .task--done .task__when{color:var(--faint);}
+  .task--late .task__when{color:var(--rust);}
+  .task--late .task__check{border-color:var(--rust);}
+
+  .editor{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.5rem 0 .15rem;}
+  .editor input{
+    font:inherit;font-size:.8125rem;color:var(--ink);background:var(--panel);
+    border:1px solid var(--rule);border-radius:3px;padding:.3rem .45rem;
+  }
+  .editor button{font-size:.8125rem;color:var(--soft);padding:.3rem .5rem;border-radius:3px;}
+  .editor button:hover{color:var(--rust);background:var(--panel);}
+
+  .add{display:flex;gap:.5rem;align-items:center;padding:.9rem 0 0;}
+  .add__text{
+    flex:1 1 auto;min-width:0;font:inherit;color:var(--ink);background:none;
+    border:none;border-bottom:1px solid var(--rule);padding:.4rem 0;
+  }
+  .add__text::placeholder{color:var(--faint);}
+  .add__text:focus{outline:none;border-bottom-color:var(--marigold);}
+  .add__time{
+    flex:none;font:inherit;font-size:.8125rem;color:var(--soft);background:var(--panel);
+    border:1px solid var(--rule);border-radius:3px;padding:.32rem .4rem;
+  }
+  .add__go{flex:none;border:1px solid var(--rule-strong);border-radius:3px;padding:.35rem .8rem;font-size:.875rem;}
+  .add__go:hover{background:var(--panel);}
+  .empty{color:var(--faint);font-size:.9375rem;padding:.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:0;}
+
+  /* ---- week ---- */
+  .week,.someday{margin-top:2.5rem;}
+  .section-rule{display:flex;align-items:center;gap:.75rem;color:var(--faint);font-size:.75rem;letter-spacing:.04em;margin-bottom:.25rem;}
+  .section-rule::after{content:"";flex:1;height:1px;background:var(--rule);}
+  .band{
+    width:100%;display:grid;grid-template-columns:3.4rem 1fr auto;align-items:center;
+    gap:.75rem;padding:.6rem .4rem;border-bottom:1px solid var(--rule);text-align:left;border-radius:2px;
+  }
+  .band:hover{background:var(--panel);}
+  .band__day{font-size:.875rem;color:var(--soft);font-variant-numeric:tabular-nums;}
+  .band--sel{background:var(--panel);}
+  .band--sel .band__day{color:var(--ink);font-weight:600;}
+  .band--today .band__day{color:var(--marigold);font-weight:600;}
+  .band__dots{display:flex;gap:.28rem;flex-wrap:wrap;min-height:.5rem;}
+  .band__dots i{width:.42rem;height:.42rem;border-radius:50%;background:var(--rule-strong);display:block;}
+  .band__dots i.late{background:var(--rust);}
+  .band__n{font-size:.8125rem;color:var(--faint);font-variant-numeric:tabular-nums;}
+
+  .foot{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.75rem;color:var(--faint);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+  .foot button{font-size:.75rem;color:var(--faint);text-decoration:underline;padding:0;}
+  .foot button:hover{color:var(--ink);}
+
+  @media (max-width:30rem){
+    .wrap{padding:1.1rem .9rem 4rem;}
+    .day{padding-top:1.5rem;}
+    .add{flex-wrap:wrap;}
+    .add__text{flex:1 1 100%;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="auth" id="authView" hidden>
+  <h1 id="authTitle">Inloggen</h1>
+  <p id="authIntro">Je agenda staat op dit toestel. Met een account houd je hem gelijk op je telefoon en je laptop.</p>
+  <label class="field"><span>E-mailadres</span><input type="email" id="authEmail" autocomplete="email" inputmode="email"></label>
+  <label class="field"><span>Wachtwoord</span><input type="password" id="authPass" autocomplete="current-password"></label>
+  <button class="btn btn--primary" id="authGo">Inloggen</button>
+  <button class="btn" id="authSkip">Doorgaan zonder account</button>
+  <p class="auth__alt" id="authAlt"></p>
+  <p class="msg" id="authMsg" hidden></p>
+</div>
+
+<div class="wrap" id="appView" hidden>
+  <header class="masthead">
+    <h2 id="monthLabel">&nbsp;</h2>
+    <nav class="nav">
+      <button id="prevWeek" aria-label="Vorige week">&larr;</button>
+      <button id="todayBtn" class="nav__today">Vandaag</button>
+      <button id="nextWeek" aria-label="Volgende week">&rarr;</button>
+    </nav>
+  </header>
+
+  <div class="syncbar" id="syncBar">
+    <span id="syncText"><span class="syncbar__dot"></span>&nbsp;</span>
+    <span><button id="syncNow" hidden>Nu synchroniseren</button></span>
+  </div>
+
+  <section class="day" id="dayPanel"></section>
+
+  <section class="week">
+    <div class="section-rule"><span>Deze week</span></div>
+    <div id="weekList"></div>
+  </section>
+
+  <section class="someday">
+    <div class="section-rule"><span>Ooit</span></div>
+    <div id="somedayList"></div>
+  </section>
+
+  <div class="foot">
+    <span id="footWho"></span>
+    <span>
+      <button id="exportBtn">Exporteren</button>
+      &nbsp; <button id="signOut" hidden>Uitloggen</button>
+      &nbsp; <button id="connectBtn" hidden>Account koppelen</button>
+    </span>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ============ 1. lokale opslag (IndexedDB) ============ */
+  var IDB = (function(){
+    var dbp = null;
+    function open(){
+      if (dbp) return dbp;
+      dbp = new Promise(function(res, rej){
+        var r = indexedDB.open("planner", 1);
+        r.onupgradeneeded = function(){
+          var d = r.result;
+          if (!d.objectStoreNames.contains("tasks")) d.createObjectStore("tasks", {keyPath:"id"});
+          if (!d.objectStoreNames.contains("meta"))  d.createObjectStore("meta");
+        };
+        r.onsuccess = function(){ res(r.result); };
+        r.onerror   = function(){ rej(r.error); };
+      });
+      return dbp;
+    }
+    function tx(store, mode, fn){
+      return open().then(function(d){
+        return new Promise(function(res, rej){
+          var t = d.transaction(store, mode);
+          var s = t.objectStore(store);
+          var out = fn(s);
+          t.oncomplete = function(){ res(out && out.result !== undefined ? out.result : out); };
+          t.onerror = function(){ rej(t.error); };
+          t.onabort = function(){ rej(t.error); };
+        });
+      });
+    }
+    return {
+      all: function(){ return tx("tasks","readonly", function(s){ return s.getAll(); }); },
+      put: function(t){ return tx("tasks","readwrite", function(s){ s.put(t); }); },
+      putMany: function(list){ return tx("tasks","readwrite", function(s){ list.forEach(function(t){ s.put(t); }); }); },
+      drop: function(id){ return tx("tasks","readwrite", function(s){ s.delete(id); }); },
+      getMeta: function(k){ return tx("meta","readonly", function(s){ return s.get(k); }); },
+      setMeta: function(k,v){ return tx("meta","readwrite", function(s){ s.put(v,k); }); }
+    };
+  })();
+
+  /* ============ 2. staat ============ */
+  var CFG = (window.PLANNER_CONFIG || {});
+  var configured = !!(CFG.supabaseUrl && CFG.supabaseAnonKey &&
+                      CFG.supabaseUrl.indexOf("http") === 0 &&
+                      CFG.supabaseAnonKey.length > 20);
+
+  var tasks = [];              // alle records, tombstones inbegrepen
+  var session = null;          // {access_token, refresh_token, email, expires_at}
+  var mode = "local";          // "local" | "synced"
+  var syncing = false;
+  var lastSync = null;
+  var syncErr = null;
+
+  var selected = todayIso();
+  var weekStart = mondayOf(new Date());
+  var openEditor = null;
+  var signupMode = false;
+
+  var $ = function(id){ return document.getElementById(id); };
+  function uid(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){
+      var r = Math.random()*16|0, v = c === "x" ? r : (r&0x3|0x8);
+      return v.toString(16);
+    });
+  }
+
+  /* ============ 3. datums ============ */
+  var DAYS  = ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"];
+  var SHORT = ["zo","ma","di","wo","do","vr","za"];
+  var MONTHS= ["januari","februari","maart","april","mei","juni","juli",
+               "augustus","september","oktober","november","december"];
+  function iso(d){
+    var m=d.getMonth()+1, day=d.getDate();
+    return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+  }
+  function fromIso(s){ var p=s.split("-"); return new Date(+p[0],+p[1]-1,+p[2],12,0,0); }
+  function todayIso(){ return iso(new Date()); }
+  function mondayOf(d){
+    var c=new Date(d.getFullYear(),d.getMonth(),d.getDate(),12);
+    c.setDate(c.getDate() - ((c.getDay()+6)%7));
+    return c;
+  }
+  function addDays(d,n){ var c=new Date(d.getTime()); c.setDate(c.getDate()+n); return c; }
+  function relLabel(s){
+    var t=todayIso();
+    if (s===t) return "Vandaag";
+    if (s===iso(addDays(fromIso(t),1))) return "Morgen";
+    if (s===iso(addDays(fromIso(t),-1))) return "Gisteren";
+    return null;
+  }
+
+  /* ============ 4. mutaties (altijd lokaal eerst) ============ */
+  function addTask(title, date, time){
+    title = title.trim();
+    if (!title) return;
+    var t = {
+      id: uid(), title: title, date: date||"", time: time||"",
+      done: false, created_at: Date.now(), updated_at: Date.now(),
+      deleted: false, dirty: true
+    };
+    tasks.push(t);
+    IDB.put(t);
+    render();
+    queueSync();
+  }
+  function patch(id, fields){
+    var t = find(id);
+    if (!t) return;
+    Object.assign(t, fields);
+    t.updated_at = Date.now();
+    t.dirty = true;
+    IDB.put(t);
+    render();
+    queueSync();
+  }
+  function removeTask(id){
+    var t = find(id);
+    if (!t) return;
+    if (mode === "synced" || t.synced){
+      patch(id, { deleted: true });        // grafsteen, zodat het ook elders verdwijnt
+    } else {
+      tasks = tasks.filter(function(x){ return x.id !== id; });
+      IDB.drop(id);
+      render();
+    }
+  }
+  function find(id){
+    for (var i=0;i<tasks.length;i++) if (tasks[i].id===id) return tasks[i];
+    return null;
+  }
+  function live(){ return tasks.filter(function(t){ return !t.deleted; }); }
+
+  /* ============ 5. Supabase via fetch ============ */
+  function api(path, opts){
+    opts = opts || {};
+    var h = opts.headers || {};
+    h["apikey"] = CFG.supabaseAnonKey;
+    h["Content-Type"] = "application/json";
+    if (session && session.access_token && !opts.noAuth)
+      h["Authorization"] = "Bearer " + session.access_token;
+    opts.headers = h;
+    return fetch(CFG.supabaseUrl.replace(/\/+$/,"") + path, opts);
+  }
+  function apiJson(path, opts){
+    return api(path, opts).then(function(r){
+      return r.text().then(function(txt){
+        var body = null;
+        try { body = txt ? JSON.parse(txt) : null; } catch(e){ body = null; }
+        if (!r.ok){
+          var m = (body && (body.error_description || body.msg || body.message || body.error)) ||
+                  ("Serverfout " + r.status);
+          var err = new Error(m); err.status = r.status; throw err;
+        }
+        return body;
+      });
+    });
+  }
+
+  function signIn(email, pass){
+    return apiJson("/auth/v1/token?grant_type=password", {
+      method:"POST", noAuth:true,
+      body: JSON.stringify({ email: email, password: pass })
+    }).then(storeSession);
+  }
+  function signUp(email, pass){
+    return apiJson("/auth/v1/signup", {
+      method:"POST", noAuth:true,
+      body: JSON.stringify({ email: email, password: pass })
+    }).then(function(res){
+      if (res && res.access_token) return storeSession(res);
+      return null;   // e-mailbevestiging staat aan
+    });
+  }
+  function storeSession(res){
+    if (!res || !res.access_token) throw new Error("Geen sessie ontvangen.");
+    session = {
+      access_token: res.access_token,
+      refresh_token: res.refresh_token,
+      email: (res.user && res.user.email) || (session && session.email) || "",
+      expires_at: Date.now() + ((res.expires_in || 3600) * 1000)
+    };
+    mode = "synced";
+    return IDB.setMeta("session", session).then(function(){ return session; });
+  }
+  function refresh(){
+    if (!session || !session.refresh_token) return Promise.reject(new Error("geen sessie"));
+    return apiJson("/auth/v1/token?grant_type=refresh_token", {
+      method:"POST", noAuth:true,
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    }).then(storeSession);
+  }
+  function ensureToken(){
+    if (!session) return Promise.reject(new Error("geen sessie"));
+    if (Date.now() < session.expires_at - 60000) return Promise.resolve();
+    return refresh();
+  }
+  function signOut(){
+    session = null; mode = "local";
+    return IDB.setMeta("session", null).then(function(){
+      // lokale kopie blijft staan; alleen de koppeling is weg
+      tasks.forEach(function(t){ t.synced = false; });
+      render();
+      showAuth();
+    });
+  }
+
+  /* ============ 6. synchroniseren ============ */
+  var syncTimer = null;
+  function queueSync(){
+    if (mode !== "synced") { paintSync(); return; }
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(sync, 1500);
+    paintSync();
+  }
+
+  function sync(){
+    if (mode !== "synced" || syncing || !navigator.onLine) { paintSync(); return Promise.resolve(); }
+    syncing = true; syncErr = null; paintSync();
+
+    return ensureToken().then(function(){
+      var dirty = tasks.filter(function(t){ return t.dirty; });
+      if (!dirty.length) return null;
+      var rows = dirty.map(function(t){
+        return {
+          id: t.id, title: t.title, due_date: t.date || null, due_time: t.time || null,
+          done: !!t.done, created_at: t.created_at, updated_at: t.updated_at,
+          deleted: !!t.deleted
+        };
+      });
+      return apiJson("/rest/v1/tasks", {
+        method:"POST",
+        headers:{ "Prefer":"resolution=merge-duplicates,return=minimal" },
+        body: JSON.stringify(rows)
+      }).then(function(){
+        dirty.forEach(function(t){ t.dirty = false; t.synced = true; });
+        return IDB.putMany(dirty);
+      });
+    })
+    .then(function(){
+      // volledige pull: klein genoeg, en immuun voor klokverschil tussen toestellen
+      return apiJson("/rest/v1/tasks?select=*", { method:"GET" });
+    })
+    .then(function(rows){
+      return mergeRemote(rows || []);
+    })
+    .then(function(){
+      lastSync = Date.now(); syncing = false;
+      render();
+    })
+    .catch(function(e){
+      syncing = false;
+      if (e && e.status === 401){
+        return refresh().then(function(){ return sync(); })
+          .catch(function(){
+            syncErr = "Je sessie is verlopen. Log opnieuw in.";
+            paintSync();
+          });
+      }
+      syncErr = navigator.onLine ? ("Synchroniseren mislukt: " + e.message)
+                                 : "Geen verbinding.";
+      paintSync();
+    });
+  }
+
+  function mergeRemote(rows){
+    var remote = {};
+    rows.forEach(function(r){
+      remote[r.id] = {
+        id: r.id, title: r.title || "", date: r.due_date || "", time: r.due_time || "",
+        done: !!r.done, created_at: +r.created_at || 0, updated_at: +r.updated_at || 0,
+        deleted: !!r.deleted, dirty: false, synced: true
+      };
+    });
+    var byId = {}, changed = [];
+    tasks.forEach(function(t){ byId[t.id] = t; });
+
+    Object.keys(remote).forEach(function(id){
+      var r = remote[id], l = byId[id];
+      if (!l){ tasks.push(r); changed.push(r); return; }
+      if (l.dirty && l.updated_at >= r.updated_at) return;   // lokaal is nieuwer, wacht op push
+      Object.assign(l, r);
+      changed.push(l);
+    });
+
+    // lokaal aanwezig maar server kent het niet meer: server heeft het opgeruimd
+    var gone = tasks.filter(function(t){ return t.synced && !t.dirty && !remote[t.id]; });
+    tasks = tasks.filter(function(t){ return !(t.synced && !t.dirty && !remote[t.id]); });
+
+    return Promise.all([
+      changed.length ? IDB.putMany(changed) : null
+    ].concat(gone.map(function(t){ return IDB.drop(t.id); })));
+  }
+
+  function paintSync(){
+    var bar = $("syncBar"), txt = $("syncText"), btn = $("syncNow");
+    var pending = tasks.filter(function(t){ return t.dirty; }).length;
+    var dot = '<span class="syncbar__dot"></span>';
+    bar.className = "syncbar";
+    btn.hidden = true;
+
+    if (mode !== "synced"){
+      bar.className += " syncbar--off";
+      txt.innerHTML = dot + "Alleen op dit toestel";
+      return;
+    }
+    if (syncErr){
+      bar.className += " syncbar--wait";
+      txt.innerHTML = dot + syncErr + (pending ? " " + pending + " wijziging" + (pending===1?"":"en") + " wacht" + (pending===1?"t":"en") + "." : "");
+      btn.hidden = false;
+      return;
+    }
+    if (syncing){ bar.className += " syncbar--wait"; txt.innerHTML = dot + "Bezig met synchroniseren\u2026"; return; }
+    if (!navigator.onLine){
+      bar.className += " syncbar--wait";
+      txt.innerHTML = dot + "Offline" + (pending ? " \u2014 " + pending + " wijziging" + (pending===1?"":"en") + " wordt verstuurd zodra je verbinding hebt" : " \u2014 alles is verstuurd");
+      return;
+    }
+    if (pending){ bar.className += " syncbar--wait"; txt.innerHTML = dot + pending + " wijziging" + (pending===1?"":"en") + " wordt verstuurd\u2026"; btn.hidden=false; return; }
+    var t = lastSync ? new Date(lastSync) : null;
+    txt.innerHTML = dot + "Bijgewerkt" + (t ? " om " + ("0"+t.getHours()).slice(-2) + ":" + ("0"+t.getMinutes()).slice(-2) : "");
+    btn.hidden = false;
+  }
+
+  /* ============ 7. weergave ============ */
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function forDate(d){ return live().filter(function(t){ return t.date === d; }).sort(cmp); }
+  function someday(){ return live().filter(function(t){ return !t.date; }).sort(cmp); }
+  function cmp(a,b){
+    if (a.done !== b.done) return a.done ? 1 : -1;
+    if (a.time && b.time) return a.time < b.time ? -1 : (a.time > b.time ? 1 : 0);
+    if (a.time) return -1;
+    if (b.time) return 1;
+    return a.created_at - b.created_at;
+  }
+  function isLate(t){ return !t.done && t.date && t.date < todayIso(); }
+
+  function render(){
+    paintSync();
+    var end = addDays(weekStart, 6);
+    $("monthLabel").textContent = (weekStart.getMonth() === end.getMonth())
+      ? MONTHS[weekStart.getMonth()] + " " + weekStart.getFullYear()
+      : MONTHS[weekStart.getMonth()] + "\u2013" + MONTHS[end.getMonth()] + " " + end.getFullYear();
+    renderDay(); renderWeek(); renderSomeday();
+    $("footWho").textContent = (mode === "synced" && session) ? session.email : "Niet gekoppeld";
+    $("signOut").hidden    = mode !== "synced";
+    $("connectBtn").hidden = mode === "synced" || !configured;
+  }
+
+  function renderDay(){
+    var p = $("dayPanel"); p.textContent = "";
+    var d = fromIso(selected), list = forDate(selected);
+    var open = list.filter(function(t){ return !t.done; }).length;
+    p.className = "day" + (selected === todayIso() ? " day--today" : "");
+
+    var head = el("div","day__head"), title = el("div","day__title");
+    title.appendChild(el("h1","day__name", relLabel(selected) || DAYS[d.getDay()]));
+    title.appendChild(el("p","day__date", d.getDate() + " " + MONTHS[d.getMonth()] +
+      (relLabel(selected) ? ", " + DAYS[d.getDay()] : "")));
+    head.appendChild(title);
+    head.appendChild(el("div","day__count",
+      open === 0 ? (list.length ? "alles af" : "nog niets") : open + " te doen"));
+    p.appendChild(head);
+
+    if (!list.length) p.appendChild(el("p","empty","Niets op deze dag. Zet hieronder het eerste erin."));
+    else p.appendChild(taskList(list));
+    p.appendChild(addRow(selected));
+  }
+
+  function taskList(list){
+    var ul = el("ul","tasks");
+    list.forEach(function(t){ ul.appendChild(taskRow(t)); });
+    return ul;
+  }
+
+  function taskRow(t){
+    var li = el("li","task" + (t.done?" task--done":"") + (isLate(t)?" task--late":""));
+    var check = el("button","task__check");
+    check.setAttribute("aria-label",(t.done?"Markeer als niet af: ":"Markeer als af: ")+t.title);
+    check.setAttribute("aria-pressed", t.done?"true":"false");
+    check.addEventListener("click", function(){ patch(t.id,{done:!t.done}); });
+
+    var text = el("button","task__text", t.title);
+    text.setAttribute("aria-expanded", openEditor===t.id?"true":"false");
+    text.addEventListener("click", function(){
+      openEditor = (openEditor===t.id) ? null : t.id; render();
+    });
+
+    var when = el("span","task__when");
+    when.textContent = isLate(t) ? ((t.time ? t.time+" " : "") + "te laat") : (t.time || "");
+
+    li.appendChild(check); li.appendChild(text); li.appendChild(when);
+    if (openEditor === t.id) li.appendChild(editorRow(t));
+    return li;
+  }
+
+  function editorRow(t){
+    var box = el("div","editor");
+    var name = document.createElement("input");
+    name.type="text"; name.value=t.title; name.style.flex="1 1 12rem";
+    name.setAttribute("aria-label","Naam");
+    name.addEventListener("change", function(){
+      var v=name.value.trim(); if (v && v!==t.title) patch(t.id,{title:v});
+    });
+    var date = document.createElement("input");
+    date.type="date"; date.value=t.date||""; date.setAttribute("aria-label","Datum");
+    date.addEventListener("change", function(){
+      patch(t.id,{date:date.value||""});
+      if (date.value){ selected = date.value; weekStart = mondayOf(fromIso(date.value)); }
+      openEditor=null; render();
+    });
+    var time = document.createElement("input");
+    time.type="time"; time.value=t.time||""; time.setAttribute("aria-label","Tijd");
+    time.addEventListener("change", function(){ patch(t.id,{time:time.value||""}); });
+
+    var clear = el("button",null,"Datum weghalen");
+    clear.addEventListener("click", function(){ patch(t.id,{date:""}); openEditor=null; render(); });
+    var del = el("button",null,"Verwijderen");
+    del.addEventListener("click", function(){ openEditor=null; removeTask(t.id); });
+
+    box.appendChild(name); box.appendChild(date); box.appendChild(time);
+    if (t.date) box.appendChild(clear);
+    box.appendChild(del);
+    return box;
+  }
+
+  function addRow(dateStr){
+    var form = el("div","add");
+    var text = document.createElement("input");
+    text.type="text"; text.className="add__text";
+    text.placeholder = dateStr ? "Toevoegen aan deze dag" : "Toevoegen zonder datum";
+    text.setAttribute("aria-label","Nieuwe taak");
+    var time = document.createElement("input");
+    time.type="time"; time.className="add__time"; time.setAttribute("aria-label","Tijd (optioneel)");
+    if (!dateStr) time.style.display="none";
+    var go = el("button","add__go","Toevoegen");
+    function submit(){
+      if (!text.value.trim()) return;
+      addTask(text.value, dateStr, time.value);
+      text.value=""; time.value=""; text.focus();
+    }
+    text.addEventListener("keydown", function(e){ if (e.key==="Enter") submit(); });
+    go.addEventListener("click", submit);
+    form.appendChild(text); form.appendChild(time); form.appendChild(go);
+    return form;
+  }
+
+  function renderWeek(){
+    var box = $("weekList"); box.textContent="";
+    for (var i=0;i<7;i++){
+      (function(){
+        var d = addDays(weekStart,i), ds = iso(d);
+        var open = forDate(ds).filter(function(t){ return !t.done; });
+        var band = el("button","band" + (ds===selected?" band--sel":"") + (ds===todayIso()?" band--today":""));
+        band.appendChild(el("span","band__day", SHORT[d.getDay()] + " " + d.getDate()));
+        var dots = el("span","band__dots");
+        open.slice(0,10).forEach(function(t){
+          var dot = el("i"); if (isLate(t)) dot.className="late"; dots.appendChild(dot);
+        });
+        band.appendChild(dots);
+        band.appendChild(el("span","band__n", open.length ? String(open.length) : "\u2014"));
+        band.addEventListener("click", function(){
+          selected=ds; openEditor=null; render();
+          window.scrollTo({top:0,behavior:"smooth"});
+        });
+        box.appendChild(band);
+      })();
+    }
+  }
+
+  function renderSomeday(){
+    var box = $("somedayList"); box.textContent="";
+    var list = someday();
+    if (!list.length) box.appendChild(el("p","empty","Dingen zonder datum staan hier. Geef er een datum aan en ze schuiven de week in."));
+    else box.appendChild(taskList(list));
+    box.appendChild(addRow(""));
+  }
+
+  /* ============ 8. exporteren ============ */
+  function toIcs(){
+    function stamp(d,t){
+      var p=d.split("-");
+      if (t){ var q=t.split(":"); return p.join("")+"T"+q[0]+q[1]+"00"; }
+      return p.join("");
+    }
+    var out = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Eigen agenda//NL","CALSCALE:GREGORIAN"];
+    live().filter(function(t){ return t.date; }).forEach(function(t){
+      out.push("BEGIN:VEVENT");
+      out.push("UID:" + t.id);
+      out.push("SUMMARY:" + String(t.title).replace(/([,;\\])/g,"\\$1"));
+      if (t.time){
+        out.push("DTSTART:" + stamp(t.date,t.time));
+        var end = new Date(fromIso(t.date).getTime());
+        var hm = t.time.split(":");
+        end.setHours(+hm[0], +hm[1] + 30, 0, 0);
+        out.push("DTEND:" + stamp(iso(end), ("0"+end.getHours()).slice(-2)+":"+("0"+end.getMinutes()).slice(-2)));
+      } else {
+        out.push("DTSTART;VALUE=DATE:" + stamp(t.date));
+      }
+      out.push("STATUS:" + (t.done ? "COMPLETED" : "CONFIRMED"));
+      out.push("END:VEVENT");
+    });
+    out.push("END:VCALENDAR");
+    return out.join("\r\n");
+  }
+  function download(name, text, type){
+    var b = new Blob([text], {type:type});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+
+  /* ============ 9. schermen ============ */
+  function showAuth(){
+    $("appView").hidden = true;
+    $("authView").hidden = false;
+    paintAuth();
+  }
+  function showApp(){
+    $("authView").hidden = true;
+    $("appView").hidden = false;
+    render();
+  }
+  function paintAuth(){
+    $("authTitle").textContent = signupMode ? "Account aanmaken" : "Inloggen";
+    $("authGo").textContent    = signupMode ? "Account aanmaken" : "Inloggen";
+    $("authPass").setAttribute("autocomplete", signupMode ? "new-password" : "current-password");
+    var alt = $("authAlt"); alt.textContent = "";
+    var b = el("button", null, signupMode ? "Ik heb al een account" : "Nog geen account? Maak er een aan");
+    b.addEventListener("click", function(){ signupMode = !signupMode; authMsg(null); paintAuth(); });
+    alt.appendChild(b);
+    $("authSkip").hidden = false;
+  }
+  function authMsg(text, ok){
+    var m = $("authMsg");
+    if (!text){ m.hidden = true; return; }
+    m.hidden = false; m.textContent = text;
+    m.className = "msg" + (ok ? " msg--ok" : "");
+  }
+
+  /* ============ 10. opstarten ============ */
+  function boot(){
+    Promise.all([IDB.all(), IDB.getMeta("session")]).then(function(r){
+      tasks = (r[0] || []).map(function(t){
+        t.dirty = !!t.dirty; t.deleted = !!t.deleted; t.synced = !!t.synced;
+        return t;
+      });
+      session = r[1] || null;
+
+      if (session && session.refresh_token){
+        mode = "synced";
+        showApp();
+        if (navigator.onLine) sync();
+      } else if (configured && !tasks.length){
+        showAuth();
+      } else {
+        mode = "local";
+        showApp();
+      }
+    }).catch(function(e){
+      // IndexedDB geblokkeerd (privémodus): alles nog steeds bruikbaar, niets blijft bewaard
+      mode = "local"; showApp();
+      alert("Deze browser laat geen lokale opslag toe, waarschijnlijk door een privévenster. De agenda werkt, maar niets wordt bewaard.");
+    });
+  }
+
+  /* ============ 11. bediening ============ */
+  $("prevWeek").addEventListener("click", function(){
+    weekStart = addDays(weekStart,-7); selected = iso(weekStart); openEditor=null; render();
+  });
+  $("nextWeek").addEventListener("click", function(){
+    weekStart = addDays(weekStart,7); selected = iso(weekStart); openEditor=null; render();
+  });
+  $("todayBtn").addEventListener("click", function(){
+    weekStart = mondayOf(new Date()); selected = todayIso(); openEditor=null; render();
+  });
+  $("syncNow").addEventListener("click", function(){ syncErr=null; sync(); });
+  $("signOut").addEventListener("click", function(){
+    if (confirm("Uitloggen? Je agenda blijft op dit toestel staan.")) signOut();
+  });
+  $("connectBtn").addEventListener("click", function(){ signupMode=false; showAuth(); });
+  $("exportBtn").addEventListener("click", function(){
+    download("agenda.ics", toIcs(), "text/calendar");
+  });
+
+  $("authSkip").addEventListener("click", function(){ mode="local"; showApp(); });
+  $("authGo").addEventListener("click", function(){
+    var email = $("authEmail").value.trim(), pass = $("authPass").value;
+    if (!email || !pass){ authMsg("Vul allebei de velden in."); return; }
+    if (!configured){ authMsg("Er is nog geen server ingesteld. Zie config.js."); return; }
+    if (!navigator.onLine){ authMsg("Inloggen kan alleen met internet. Daarna werkt de app ook offline."); return; }
+    authMsg("Bezig\u2026", true);
+    var p = signupMode ? signUp(email, pass) : signIn(email, pass);
+    p.then(function(res){
+      if (signupMode && !res){
+        authMsg("Account aangemaakt. Bevestig eerst de e-mail die je hebt gekregen en log daarna in.", true);
+        signupMode = false; paintAuth();
+        return;
+      }
+      session.email = email;
+      return IDB.setMeta("session", session).then(function(){
+        // lokale items die nog nooit gesynchroniseerd zijn, gaan mee naar het account
+        tasks.forEach(function(t){ if (!t.synced) t.dirty = true; });
+        return IDB.putMany(tasks);
+      }).then(function(){
+        authMsg(null); showApp(); sync();
+      });
+    }).catch(function(e){
+      authMsg(e.message || "Inloggen mislukt.");
+    });
+  });
+
+  window.addEventListener("online",  function(){ syncErr=null; paintSync(); sync(); });
+  window.addEventListener("offline", paintSync);
+  document.addEventListener("visibilitychange", function(){
+    if (!document.hidden && mode==="synced" && navigator.onLine) sync();
+  });
+  setInterval(function(){ if (mode==="synced" && !document.hidden && navigator.onLine) sync(); }, 60000);
+
+  var dayStamp = todayIso();
+  setInterval(function(){
+    var t = todayIso();
+    if (t !== dayStamp){ dayStamp = t; render(); }
+  }, 60000);
+
+  if ("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

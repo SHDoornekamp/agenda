@@ -1,0 +1,17 @@
+{
+  "name": "Agenda",
+  "short_name": "Agenda",
+  "description": "Persoonlijke agenda die offline werkt en tussen je toestellen gelijk blijft.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#15171C",
+  "theme_color": "#15171C",
+  "lang": "nl",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
