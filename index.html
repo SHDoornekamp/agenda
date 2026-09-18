@@ -36,153 +36,146 @@
     background:var(--paper); color:var(--ink);
     font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
     font-size:16px; line-height:1.45; -webkit-font-smoothing:antialiased;
-    padding-top:env(safe-area-inset-top);
-    padding-bottom:env(safe-area-inset-bottom);
+    padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
   }
   button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
   :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:2px;}
   [hidden]{display:none !important;}
-  .wrap{max-width:46rem;margin:0 auto;padding:1.5rem 1.25rem 5rem;}
+  .wrap{max-width:44rem;margin:0 auto;padding:1.25rem 1.1rem 5rem;}
 
-  /* ---- auth ---- */
+  /* ---------- inloggen ---------- */
   .auth{max-width:22rem;margin:0 auto;padding:4rem 1.25rem;}
-  .auth h1{
-    font-family:"Fraunces",Georgia,serif;font-weight:600;
-    font-size:2.25rem;line-height:1;margin:0 0 .4rem;
-    letter-spacing:-.015em;
-  }
+  .auth h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:2.25rem;line-height:1;margin:0 0 .4rem;letter-spacing:-.015em;}
   .auth p{color:var(--soft);font-size:.9375rem;margin:0 0 1.75rem;}
   .field{display:block;margin-bottom:.85rem;}
   .field span{display:block;font-size:.8125rem;color:var(--soft);margin-bottom:.25rem;}
-  .field input{
-    width:100%;font:inherit;color:var(--ink);background:var(--panel);
-    border:1px solid var(--rule);border-radius:3px;padding:.55rem .65rem;
-  }
-  .btn{
-    width:100%;border:1px solid var(--rule-strong);border-radius:3px;
-    padding:.6rem 1rem;margin-top:.5rem;
-  }
+  .field input{width:100%;font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.55rem .65rem;}
+  .btn{width:100%;border:1px solid var(--rule-strong);border-radius:3px;padding:.6rem 1rem;margin-top:.5rem;}
   .btn:hover{background:var(--panel);}
   .btn--primary{background:var(--ink);color:var(--paper);border-color:var(--ink);}
   .btn--primary:hover{opacity:.88;background:var(--ink);}
   .auth__alt{margin-top:1.25rem;font-size:.875rem;color:var(--soft);text-align:center;}
   .auth__alt button{text-decoration:underline;padding:0;}
-  .msg{
-    margin:1rem 0 0;padding:.6rem .75rem;font-size:.8125rem;
-    background:var(--panel);border-left:3px solid var(--rust);color:var(--soft);
-  }
+  .msg{margin:1rem 0 0;padding:.6rem .75rem;font-size:.8125rem;background:var(--panel);border-left:3px solid var(--rust);color:var(--soft);}
   .msg--ok{border-left-color:var(--sage);}
 
-  /* ---- masthead ---- */
-  .masthead{
-    display:flex;align-items:baseline;justify-content:space-between;
-    gap:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule);flex-wrap:wrap;
-  }
-  .masthead h2{
-    margin:0;font-family:"Fraunces",Georgia,serif;font-weight:400;
-    font-size:1.375rem;
-  }
+  /* ---------- kop ---------- */
+  .masthead{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--rule);flex-wrap:wrap;}
+  .masthead h2{margin:0;font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.3125rem;}
   .nav{display:flex;align-items:center;gap:.25rem;}
   .nav button{padding:.3rem .55rem;border-radius:3px;color:var(--soft);font-size:.875rem;}
   .nav button:hover{color:var(--ink);background:var(--panel);}
   .nav__today{border:1px solid var(--rule-strong);padding:.3rem .7rem;}
 
-  .syncbar{
-    display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-    padding:.5rem 0;font-size:.75rem;color:var(--faint);
-    border-bottom:1px solid var(--rule);
-  }
-  .syncbar__dot{
-    width:.4rem;height:.4rem;border-radius:50%;background:var(--sage);
-    display:inline-block;margin-right:.4rem;vertical-align:.05rem;
-  }
+  .syncbar{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.45rem 0;font-size:.75rem;color:var(--faint);border-bottom:1px solid var(--rule);}
+  .syncbar__dot{width:.4rem;height:.4rem;border-radius:50%;background:var(--sage);display:inline-block;margin-right:.4rem;vertical-align:.05rem;}
   .syncbar--wait .syncbar__dot{background:var(--marigold);}
   .syncbar--off .syncbar__dot{background:var(--rule-strong);}
   .syncbar button{font-size:.75rem;color:var(--faint);text-decoration:underline;padding:0;}
   .syncbar button:hover{color:var(--ink);}
 
-  /* ---- day ---- */
-  .day{padding:2.25rem 0 1.25rem;}
-  .day__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;}
-  .day__name{
-    margin:0;font-family:"Fraunces",Georgia,serif;font-weight:600;
-    font-size:clamp(2.25rem,9vw,3.5rem);line-height:.95;letter-spacing:-.015em;
+  /* ---------- samenvatting ---------- */
+  .brief{
+    padding:1.35rem 0 1.15rem;
+    font-family:"Fraunces",Georgia,serif;
+    font-size:clamp(1.25rem,4.5vw,1.6rem);
+    line-height:1.25;letter-spacing:-.01em;
+    border-bottom:1px solid var(--rule);
   }
-  .day__date{margin:.4rem 0 0;color:var(--soft);font-size:.9375rem;}
-  .day__count{flex:none;text-align:right;color:var(--soft);font-size:.8125rem;padding-bottom:.3rem;}
-  .day--today .day__name{
-    border-bottom:4px solid var(--marigold);display:inline-block;padding-bottom:.08em;
-  }
+  .brief em{font-style:normal;color:var(--marigold);}
+  .brief b{font-weight:400;color:var(--rust);}
 
-  /* ---- tasks ---- */
-  .tasks{list-style:none;margin:0;padding:0;}
-  .task{
-    border-top:1px solid var(--rule);display:grid;
-    grid-template-columns:auto 1fr auto;align-items:baseline;gap:.7rem;padding:.7rem 0;
+  /* ---------- filterbalk ---------- */
+  .filter{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--rule);font-size:.8125rem;}
+  .filter span{color:var(--marigold);}
+  .filter button{color:var(--soft);text-decoration:underline;font-size:.8125rem;padding:0;}
+
+  /* ---------- dagrijen (weekoverzicht) ---------- */
+  .sect{display:flex;align-items:center;gap:.75rem;color:var(--faint);font-size:.75rem;letter-spacing:.04em;margin:2rem 0 .1rem;}
+  .sect::after{content:"";flex:1;height:1px;background:var(--rule);}
+  .sect--late{color:var(--rust);}
+
+  .dayrow{
+    width:100%;display:grid;grid-template-columns:4.1rem 1fr auto;
+    gap:.85rem;align-items:start;text-align:left;
+    padding:.85rem .3rem;border-bottom:1px solid var(--rule);border-radius:2px;
   }
+  .dayrow:hover{background:var(--panel);}
+  .dayrow--today{box-shadow:inset 3px 0 0 var(--marigold);}
+  .dayrow--weekend .dayrow__label{color:var(--faint);}
+  .dayrow__label{font-size:.875rem;color:var(--soft);font-variant-numeric:tabular-nums;padding-top:.05rem;}
+  .dayrow--today .dayrow__label{color:var(--marigold);font-weight:600;}
+  .dayrow__items{list-style:none;margin:0;padding:0;min-width:0;}
+  .dayrow__items li{
+    display:flex;gap:.55rem;font-size:.9375rem;line-height:1.5;min-width:0;
+  }
+  .dayrow__t{flex:none;color:var(--soft);font-size:.8125rem;font-variant-numeric:tabular-nums;width:2.7rem;padding-top:.09rem;}
+  .dayrow__s{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+  .dayrow__s.is-done{color:var(--faint);text-decoration:line-through;}
+  .dayrow__s.is-late{color:var(--rust);}
+  .tag{color:var(--marigold);font-size:.8125rem;}
+  .dayrow__none{color:var(--faint);font-size:.875rem;}
+  .dayrow__n{font-size:.8125rem;color:var(--faint);font-variant-numeric:tabular-nums;padding-top:.15rem;}
+
+  /* ---------- dagscherm ---------- */
+  .back{display:inline-flex;align-items:center;gap:.4rem;color:var(--soft);font-size:.875rem;padding:.3rem 0;margin-bottom:1rem;}
+  .back:hover{color:var(--ink);}
+  .dayhead{margin-bottom:1.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;}
+  .dayhead h1{margin:0;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(2rem,8vw,3rem);line-height:.95;letter-spacing:-.015em;}
+  .dayhead p{margin:.35rem 0 0;color:var(--soft);font-size:.9375rem;}
+  .dayhead__n{flex:none;color:var(--soft);font-size:.8125rem;padding-bottom:.3rem;}
+  .dayhead--today h1{border-bottom:4px solid var(--marigold);display:inline-block;padding-bottom:.08em;}
+
+  .tasks{list-style:none;margin:0;padding:0;}
+  .task{border-top:1px solid var(--rule);padding:.8rem 0;display:grid;grid-template-columns:auto 1fr;gap:.75rem;}
   .tasks .task:last-child{border-bottom:1px solid var(--rule);}
   .task__check{
-    width:1.05rem;height:1.05rem;border:1.5px solid var(--rule-strong);
-    border-radius:50%;flex:none;align-self:center;padding:0;
-    transition:background .16s ease,border-color .16s ease;
+    width:1.05rem;height:1.05rem;border:1.5px solid var(--rule-strong);border-radius:50%;
+    flex:none;padding:0;margin-top:.22rem;transition:background .16s ease,border-color .16s ease;
   }
   .task__check:hover{border-color:var(--ink);}
-  .task__text{text-align:left;padding:0;word-break:break-word;transition:color .16s ease;}
-  .task__when{color:var(--soft);font-size:.8125rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .task__body{min-width:0;}
+  .task__line{display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;}
+  .task__time{color:var(--soft);font-size:.8125rem;font-variant-numeric:tabular-nums;flex:none;}
+  .task__title{text-align:left;padding:0;word-break:break-word;}
+  .task__note{
+    margin:.3rem 0 0;color:var(--soft);font-size:.875rem;line-height:1.5;
+    white-space:pre-wrap;word-break:break-word;
+  }
+  .task__note:empty{display:none;}
   .task--done .task__check{background:var(--sage);border-color:var(--sage);}
-  .task--done .task__text{color:var(--faint);text-decoration:line-through;}
-  .task--done .task__when{color:var(--faint);}
-  .task--late .task__when{color:var(--rust);}
+  .task--done .task__title{color:var(--faint);text-decoration:line-through;}
+  .task--done .task__note{color:var(--faint);}
+  .task--late .task__time{color:var(--rust);}
   .task--late .task__check{border-color:var(--rust);}
 
-  .editor{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.5rem 0 .15rem;}
-  .editor input{
-    font:inherit;font-size:.8125rem;color:var(--ink);background:var(--panel);
-    border:1px solid var(--rule);border-radius:3px;padding:.3rem .45rem;
+  .editor{margin-top:.6rem;display:flex;flex-direction:column;gap:.5rem;}
+  .editor__row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;}
+  .editor input,.editor textarea{
+    font:inherit;font-size:.875rem;color:var(--ink);background:var(--panel);
+    border:1px solid var(--rule);border-radius:3px;padding:.4rem .5rem;
   }
-  .editor button{font-size:.8125rem;color:var(--soft);padding:.3rem .5rem;border-radius:3px;}
-  .editor button:hover{color:var(--rust);background:var(--panel);}
+  .editor textarea{width:100%;min-height:4.5rem;resize:vertical;line-height:1.5;}
+  .editor__row button{font-size:.8125rem;color:var(--soft);padding:.3rem .5rem;border-radius:3px;}
+  .editor__row button:hover{color:var(--rust);background:var(--panel);}
 
-  .add{display:flex;gap:.5rem;align-items:center;padding:.9rem 0 0;}
-  .add__text{
-    flex:1 1 auto;min-width:0;font:inherit;color:var(--ink);background:none;
-    border:none;border-bottom:1px solid var(--rule);padding:.4rem 0;
-  }
+  .add{display:flex;gap:.5rem;align-items:center;padding:1rem 0 0;}
+  .add__text{flex:1 1 auto;min-width:0;font:inherit;color:var(--ink);background:none;border:none;border-bottom:1px solid var(--rule);padding:.4rem 0;}
   .add__text::placeholder{color:var(--faint);}
   .add__text:focus{outline:none;border-bottom-color:var(--marigold);}
-  .add__time{
-    flex:none;font:inherit;font-size:.8125rem;color:var(--soft);background:var(--panel);
-    border:1px solid var(--rule);border-radius:3px;padding:.32rem .4rem;
-  }
+  .add__time{flex:none;font:inherit;font-size:.8125rem;color:var(--soft);background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.32rem .4rem;}
   .add__go{flex:none;border:1px solid var(--rule-strong);border-radius:3px;padding:.35rem .8rem;font-size:.875rem;}
   .add__go:hover{background:var(--panel);}
+  .hint{margin:.5rem 0 0;font-size:.75rem;color:var(--faint);}
   .empty{color:var(--faint);font-size:.9375rem;padding:.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:0;}
-
-  /* ---- week ---- */
-  .week,.someday{margin-top:2.5rem;}
-  .section-rule{display:flex;align-items:center;gap:.75rem;color:var(--faint);font-size:.75rem;letter-spacing:.04em;margin-bottom:.25rem;}
-  .section-rule::after{content:"";flex:1;height:1px;background:var(--rule);}
-  .band{
-    width:100%;display:grid;grid-template-columns:3.4rem 1fr auto;align-items:center;
-    gap:.75rem;padding:.6rem .4rem;border-bottom:1px solid var(--rule);text-align:left;border-radius:2px;
-  }
-  .band:hover{background:var(--panel);}
-  .band__day{font-size:.875rem;color:var(--soft);font-variant-numeric:tabular-nums;}
-  .band--sel{background:var(--panel);}
-  .band--sel .band__day{color:var(--ink);font-weight:600;}
-  .band--today .band__day{color:var(--marigold);font-weight:600;}
-  .band__dots{display:flex;gap:.28rem;flex-wrap:wrap;min-height:.5rem;}
-  .band__dots i{width:.42rem;height:.42rem;border-radius:50%;background:var(--rule-strong);display:block;}
-  .band__dots i.late{background:var(--rust);}
-  .band__n{font-size:.8125rem;color:var(--faint);font-variant-numeric:tabular-nums;}
 
   .foot{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.75rem;color:var(--faint);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
   .foot button{font-size:.75rem;color:var(--faint);text-decoration:underline;padding:0;}
   .foot button:hover{color:var(--ink);}
 
   @media (max-width:30rem){
-    .wrap{padding:1.1rem .9rem 4rem;}
-    .day{padding-top:1.5rem;}
+    .wrap{padding:1rem .85rem 4rem;}
+    .dayrow{grid-template-columns:3.5rem 1fr auto;gap:.6rem;}
     .add{flex-wrap:wrap;}
     .add__text{flex:1 1 100%;}
   }
@@ -203,40 +196,56 @@
 </div>
 
 <div class="wrap" id="appView" hidden>
-  <header class="masthead">
-    <h2 id="monthLabel">&nbsp;</h2>
-    <nav class="nav">
-      <button id="prevWeek" aria-label="Vorige week">&larr;</button>
-      <button id="todayBtn" class="nav__today">Vandaag</button>
-      <button id="nextWeek" aria-label="Volgende week">&rarr;</button>
-    </nav>
-  </header>
 
-  <div class="syncbar" id="syncBar">
-    <span id="syncText"><span class="syncbar__dot"></span>&nbsp;</span>
-    <span><button id="syncNow" hidden>Nu synchroniseren</button></span>
-  </div>
+  <!-- weekscherm -->
+  <div id="weekScreen">
+    <header class="masthead">
+      <h2 id="monthLabel">&nbsp;</h2>
+      <nav class="nav">
+        <button id="prevWeek" aria-label="Vorige week">&larr;</button>
+        <button id="todayBtn" class="nav__today">Vandaag</button>
+        <button id="nextWeek" aria-label="Volgende week">&rarr;</button>
+      </nav>
+    </header>
 
-  <section class="day" id="dayPanel"></section>
+    <div class="syncbar" id="syncBar">
+      <span id="syncText"><span class="syncbar__dot"></span>&nbsp;</span>
+      <span><button id="syncNow" hidden>Nu synchroniseren</button></span>
+    </div>
 
-  <section class="week">
-    <div class="section-rule"><span>Deze week</span></div>
+    <p class="brief" id="brief"></p>
+
+    <div class="filter" id="filterBar" hidden>
+      <span id="filterLabel"></span>
+      <button id="filterClear">toon alles</button>
+    </div>
+
+    <div id="lateWrap" hidden>
+      <div class="sect sect--late"><span>Te laat</span></div>
+      <div id="lateList"></div>
+    </div>
+
     <div id="weekList"></div>
-  </section>
 
-  <section class="someday">
-    <div class="section-rule"><span>Ooit</span></div>
+    <div class="sect"><span>Ooit</span></div>
     <div id="somedayList"></div>
-  </section>
 
-  <div class="foot">
-    <span id="footWho"></span>
-    <span>
-      <button id="exportBtn">Exporteren</button>
-      &nbsp; <button id="signOut" hidden>Uitloggen</button>
-      &nbsp; <button id="connectBtn" hidden>Account koppelen</button>
-    </span>
+    <div class="foot">
+      <span id="footWho"></span>
+      <span>
+        <button id="exportBtn">Exporteren</button>
+        &nbsp; <button id="signOut" hidden>Uitloggen</button>
+        &nbsp; <button id="connectBtn" hidden>Account koppelen</button>
+      </span>
+    </div>
   </div>
+
+  <!-- dagscherm -->
+  <div id="dayScreen" hidden>
+    <button class="back" id="backBtn">&larr; terug naar de week</button>
+    <div id="dayBody"></div>
+  </div>
+
 </div>
 
 <script src="config.js"></script>
@@ -244,7 +253,7 @@
 (function(){
   "use strict";
 
-  /* ============ 1. lokale opslag (IndexedDB) ============ */
+/* ============ 1. lokale opslag (IndexedDB) ============ */
   var IDB = (function(){
     var dbp = null;
     function open(){
@@ -283,23 +292,28 @@
     };
   })();
 
+  
   /* ============ 2. staat ============ */
   var CFG = (window.PLANNER_CONFIG || {});
   var configured = !!(CFG.supabaseUrl && CFG.supabaseAnonKey &&
                       CFG.supabaseUrl.indexOf("http") === 0 &&
                       CFG.supabaseAnonKey.length > 20);
 
-  var tasks = [];              // alle records, tombstones inbegrepen
-  var session = null;          // {access_token, refresh_token, email, expires_at}
-  var mode = "local";          // "local" | "synced"
+  var tasks = [];
+  var session = null;
+  var mode = "local";
   var syncing = false;
   var lastSync = null;
   var syncErr = null;
 
-  var selected = todayIso();
-  var weekStart = mondayOf(new Date());
+  var view = "week";        // "week" of "day"
+  var selected = null;      // ISO-datum, of "" voor Ooit
+  var weekStart = null;     // wordt in blok 3 gezet zodra de datums klaar zijn
   var openEditor = null;
+  var filterTag = null;
   var signupMode = false;
+
+  var MAX_ROW = 6;          // hoeveel regels een dag in het weekoverzicht toont
 
   var $ = function(id){ return document.getElementById(id); };
   function uid(){
@@ -310,7 +324,22 @@
     });
   }
 
-  /* ============ 3. datums ============ */
+  // "offerte af #klantX" -> { clean:"offerte af", tags:["klantX"] }
+  function splitTags(title){
+    var tags = [];
+    var clean = String(title || "").replace(/#([0-9A-Za-zÀ-ÿ_\-]+)/g, function(m, t){
+      tags.push(t); return "";
+    }).replace(/\s{2,}/g, " ").trim();
+    if (!clean) clean = String(title || "").trim();
+    return { clean: clean, tags: tags };
+  }
+  function matches(t){
+    if (!filterTag) return true;
+    return splitTags(t.title).tags.some(function(x){
+      return x.toLowerCase() === filterTag.toLowerCase();
+    });
+  }
+/* ============ 3. datums ============ */
   var DAYS  = ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"];
   var SHORT = ["zo","ma","di","wo","do","vr","za"];
   var MONTHS= ["januari","februari","maart","april","mei","juni","juli",
@@ -335,12 +364,13 @@
     return null;
   }
 
+  
   /* ============ 4. mutaties (altijd lokaal eerst) ============ */
   function addTask(title, date, time){
     title = title.trim();
     if (!title) return;
     var t = {
-      id: uid(), title: title, date: date||"", time: time||"",
+      id: uid(), title: title, notes: "", date: date||"", time: time||"",
       done: false, created_at: Date.now(), updated_at: Date.now(),
       deleted: false, dirty: true
     };
@@ -363,7 +393,7 @@
     var t = find(id);
     if (!t) return;
     if (mode === "synced" || t.synced){
-      patch(id, { deleted: true });        // grafsteen, zodat het ook elders verdwijnt
+      patch(id, { deleted: true });   // grafsteen, zodat het ook elders verdwijnt
     } else {
       tasks = tasks.filter(function(x){ return x.id !== id; });
       IDB.drop(id);
@@ -375,8 +405,7 @@
     return null;
   }
   function live(){ return tasks.filter(function(t){ return !t.deleted; }); }
-
-  /* ============ 5. Supabase via fetch ============ */
+/* ============ 5. Supabase via fetch ============ */
   function api(path, opts){
     opts = opts || {};
     var h = opts.headers || {};
@@ -468,7 +497,8 @@
       if (!dirty.length) return null;
       var rows = dirty.map(function(t){
         return {
-          id: t.id, title: t.title, due_date: t.date || null, due_time: t.time || null,
+          id: t.id, title: t.title, notes: t.notes || null,
+          due_date: t.date || null, due_time: t.time || null,
           done: !!t.done, created_at: t.created_at, updated_at: t.updated_at,
           deleted: !!t.deleted
         };
@@ -512,7 +542,8 @@
     var remote = {};
     rows.forEach(function(r){
       remote[r.id] = {
-        id: r.id, title: r.title || "", date: r.due_date || "", time: r.due_time || "",
+        id: r.id, title: r.title || "", notes: r.notes || "",
+        date: r.due_date || "", time: r.due_time || "",
         done: !!r.done, created_at: +r.created_at || 0, updated_at: +r.updated_at || 0,
         deleted: !!r.deleted, dirty: false, synced: true
       };
@@ -567,6 +598,7 @@
     btn.hidden = false;
   }
 
+  
   /* ============ 7. weergave ============ */
   function el(tag, cls, text){
     var n = document.createElement(tag);
@@ -574,8 +606,6 @@
     if (text != null) n.textContent = text;
     return n;
   }
-  function forDate(d){ return live().filter(function(t){ return t.date === d; }).sort(cmp); }
-  function someday(){ return live().filter(function(t){ return !t.date; }).sort(cmp); }
   function cmp(a,b){
     if (a.done !== b.done) return a.done ? 1 : -1;
     if (a.time && b.time) return a.time < b.time ? -1 : (a.time > b.time ? 1 : 0);
@@ -583,150 +613,267 @@
     if (b.time) return 1;
     return a.created_at - b.created_at;
   }
+  function forDate(d){
+    return live().filter(function(t){ return t.date === d && matches(t); }).sort(cmp);
+  }
+  function somedayTasks(){
+    return live().filter(function(t){ return !t.date && matches(t); }).sort(cmp);
+  }
   function isLate(t){ return !t.done && t.date && t.date < todayIso(); }
+  function lateTasks(){
+    return live().filter(function(t){ return isLate(t) && matches(t); }).sort(function(a,b){
+      return a.date < b.date ? -1 : (a.date > b.date ? 1 : cmp(a,b));
+    });
+  }
+  function openCount(list){ return list.filter(function(t){ return !t.done; }).length; }
 
   function render(){
     paintSync();
+    $("weekScreen").hidden = (view !== "week");
+    $("dayScreen").hidden  = (view !== "day");
+    if (view === "week") renderWeek(); else renderDayScreen();
+  }
+
+  /* ---- weekoverzicht ---- */
+  function renderWeek(){
     var end = addDays(weekStart, 6);
     $("monthLabel").textContent = (weekStart.getMonth() === end.getMonth())
       ? MONTHS[weekStart.getMonth()] + " " + weekStart.getFullYear()
       : MONTHS[weekStart.getMonth()] + "\u2013" + MONTHS[end.getMonth()] + " " + end.getFullYear();
-    renderDay(); renderWeek(); renderSomeday();
+
+    // samenvatting bovenaan
+    var todayOpen = openCount(forDate(todayIso()));
+    var late = lateTasks().length;
+    var b = $("brief"), html;
+    if (!todayOpen && !late) html = "Vandaag is vrij.";
+    else if (!todayOpen) html = "Vandaag is vrij. <b>" + late + " te laat.</b>";
+    else {
+      html = "Vandaag nog <em>" + todayOpen + (todayOpen === 1 ? " ding" : " dingen") + "</em>.";
+      if (late) html += " <b>" + late + " te laat.</b>";
+    }
+    b.innerHTML = html;
+
+    // filterbalk
+    $("filterBar").hidden = !filterTag;
+    if (filterTag) $("filterLabel").textContent = "#" + filterTag;
+
+    // te laat
+    var lateBox = $("lateList"); lateBox.textContent = "";
+    var lates = lateTasks();
+    $("lateWrap").hidden = !lates.length;
+    if (lates.length){
+      var seen = [];
+      lates.forEach(function(t){ if (seen.indexOf(t.date) < 0) seen.push(t.date); });
+      seen.forEach(function(ds){
+        var d = fromIso(ds);
+        lateBox.appendChild(dayRow(ds, SHORT[d.getDay()] + " " + d.getDate(),
+          forDate(ds), { today:false, weekend:false }));
+      });
+    }
+
+    // de zeven dagen
+    var box = $("weekList"); box.textContent = "";
+    for (var i=0;i<7;i++){
+      var d = addDays(weekStart, i), ds = iso(d);
+      box.appendChild(dayRow(ds, SHORT[d.getDay()] + " " + d.getDate(), forDate(ds), {
+        today: ds === todayIso(),
+        weekend: d.getDay() === 0 || d.getDay() === 6
+      }));
+    }
+
+    // ooit
+    var sb = $("somedayList"); sb.textContent = "";
+    sb.appendChild(dayRow("", "ooit", somedayTasks(), { today:false, weekend:false }));
+
     $("footWho").textContent = (mode === "synced" && session) ? session.email : "Niet gekoppeld";
-    $("signOut").hidden    = mode !== "synced";
-    $("connectBtn").hidden = mode === "synced" || !configured;
+    $("signOut").hidden    = (mode !== "synced");
+    $("connectBtn").hidden = (mode === "synced" || !configured);
   }
 
-  function renderDay(){
-    var p = $("dayPanel"); p.textContent = "";
-    var d = fromIso(selected), list = forDate(selected);
-    var open = list.filter(function(t){ return !t.done; }).length;
-    p.className = "day" + (selected === todayIso() ? " day--today" : "");
+  function dayRow(dateStr, label, list, opts){
+    var row = el("button","dayrow" +
+      (opts.today ? " dayrow--today" : "") +
+      (opts.weekend ? " dayrow--weekend" : ""));
+    row.appendChild(el("span","dayrow__label", label));
 
-    var head = el("div","day__head"), title = el("div","day__title");
-    title.appendChild(el("h1","day__name", relLabel(selected) || DAYS[d.getDay()]));
-    title.appendChild(el("p","day__date", d.getDate() + " " + MONTHS[d.getMonth()] +
-      (relLabel(selected) ? ", " + DAYS[d.getDay()] : "")));
-    head.appendChild(title);
-    head.appendChild(el("div","day__count",
-      open === 0 ? (list.length ? "alles af" : "nog niets") : open + " te doen"));
-    p.appendChild(head);
+    var ul = el("ul","dayrow__items");
+    if (!list.length){
+      ul.appendChild(el("li","dayrow__none", "\u2014"));
+    } else {
+      list.slice(0, MAX_ROW).forEach(function(t){
+        var li = document.createElement("li");
+        li.appendChild(el("span","dayrow__t", t.time || ""));
+        var parts = splitTags(t.title);
+        var s = el("span","dayrow__s" + (t.done ? " is-done" : (isLate(t) ? " is-late" : "")));
+        s.textContent = parts.clean;
+        if (parts.tags.length){
+          var tag = el("span","tag", " #" + parts.tags.join(" #"));
+          s.appendChild(tag);
+        }
+        li.appendChild(s);
+        ul.appendChild(li);
+      });
+      if (list.length > MAX_ROW){
+        ul.appendChild(el("li","dayrow__none", "nog " + (list.length - MAX_ROW) + " meer"));
+      }
+    }
+    row.appendChild(ul);
 
-    if (!list.length) p.appendChild(el("p","empty","Niets op deze dag. Zet hieronder het eerste erin."));
-    else p.appendChild(taskList(list));
-    p.appendChild(addRow(selected));
+    var n = openCount(list);
+    row.appendChild(el("span","dayrow__n", n ? String(n) : "\u2014"));
+
+    row.addEventListener("click", function(){ openDay(dateStr); });
+    return row;
   }
 
-  function taskList(list){
-    var ul = el("ul","tasks");
-    list.forEach(function(t){ ul.appendChild(taskRow(t)); });
-    return ul;
+  /* ---- dagscherm ---- */
+  function renderDayScreen(){
+    var body = $("dayBody"); body.textContent = "";
+    var isSomeday = (selected === "");
+    var list = isSomeday ? somedayTasks() : forDate(selected);
+
+    var head = el("div","dayhead" + (!isSomeday && selected === todayIso() ? " dayhead--today" : ""));
+    var left = document.createElement("div");
+    if (isSomeday){
+      left.appendChild(el("h1", null, "Ooit"));
+      left.appendChild(el("p", null, "Dingen zonder datum."));
+    } else {
+      var d = fromIso(selected);
+      left.appendChild(el("h1", null, relLabel(selected) || DAYS[d.getDay()]));
+      left.appendChild(el("p", null, d.getDate() + " " + MONTHS[d.getMonth()] +
+        (relLabel(selected) ? ", " + DAYS[d.getDay()] : "")));
+    }
+    head.appendChild(left);
+    var n = openCount(list);
+    head.appendChild(el("div","dayhead__n",
+      n ? n + " te doen" : (list.length ? "alles af" : "leeg")));
+    body.appendChild(head);
+
+    if (!list.length){
+      body.appendChild(el("p","empty", isSomeday
+        ? "Nog niets zonder datum."
+        : "Niets op deze dag."));
+    } else {
+      var ul = el("ul","tasks");
+      list.forEach(function(t){ ul.appendChild(taskRow(t)); });
+      body.appendChild(ul);
+    }
+
+    body.appendChild(addRow(isSomeday ? "" : selected));
+    body.appendChild(el("p","hint",
+      "Tik op een regel om notities, datum of tijd aan te passen. Zet #project in de naam om iets te groeperen."));
   }
 
   function taskRow(t){
-    var li = el("li","task" + (t.done?" task--done":"") + (isLate(t)?" task--late":""));
+    var li = el("li","task" + (t.done ? " task--done" : "") + (isLate(t) ? " task--late" : ""));
+
     var check = el("button","task__check");
-    check.setAttribute("aria-label",(t.done?"Markeer als niet af: ":"Markeer als af: ")+t.title);
-    check.setAttribute("aria-pressed", t.done?"true":"false");
-    check.addEventListener("click", function(){ patch(t.id,{done:!t.done}); });
+    check.setAttribute("aria-label", (t.done ? "Markeer als niet af: " : "Markeer als af: ") + t.title);
+    check.setAttribute("aria-pressed", t.done ? "true" : "false");
+    check.addEventListener("click", function(){ patch(t.id, { done: !t.done }); });
+    li.appendChild(check);
 
-    var text = el("button","task__text", t.title);
-    text.setAttribute("aria-expanded", openEditor===t.id?"true":"false");
-    text.addEventListener("click", function(){
-      openEditor = (openEditor===t.id) ? null : t.id; render();
+    var bodyEl = el("div","task__body");
+    var line = el("div","task__line");
+    if (t.time || isLate(t)){
+      line.appendChild(el("span","task__time",
+        isLate(t) ? ((t.time ? t.time + " " : "") + "te laat") : t.time));
+    }
+    var parts = splitTags(t.title);
+    var title = el("button","task__title", parts.clean);
+    title.setAttribute("aria-expanded", openEditor === t.id ? "true" : "false");
+    title.addEventListener("click", function(){
+      openEditor = (openEditor === t.id) ? null : t.id;
+      render();
     });
+    line.appendChild(title);
+    parts.tags.forEach(function(tag){
+      var b = el("button","tag", "#" + tag);
+      b.addEventListener("click", function(){
+        filterTag = tag; goWeek();
+      });
+      line.appendChild(b);
+    });
+    bodyEl.appendChild(line);
 
-    var when = el("span","task__when");
-    when.textContent = isLate(t) ? ((t.time ? t.time+" " : "") + "te laat") : (t.time || "");
+    if (t.notes) bodyEl.appendChild(el("p","task__note", t.notes));
+    if (openEditor === t.id) bodyEl.appendChild(editorRow(t));
 
-    li.appendChild(check); li.appendChild(text); li.appendChild(when);
-    if (openEditor === t.id) li.appendChild(editorRow(t));
+    li.appendChild(bodyEl);
     return li;
   }
 
   function editorRow(t){
     var box = el("div","editor");
+
     var name = document.createElement("input");
-    name.type="text"; name.value=t.title; name.style.flex="1 1 12rem";
+    name.type = "text"; name.value = t.title; name.style.width = "100%";
     name.setAttribute("aria-label","Naam");
     name.addEventListener("change", function(){
-      var v=name.value.trim(); if (v && v!==t.title) patch(t.id,{title:v});
+      var v = name.value.trim();
+      if (v && v !== t.title) patch(t.id, { title: v });
     });
+    box.appendChild(name);
+
+    var note = document.createElement("textarea");
+    note.value = t.notes || "";
+    note.placeholder = "Notities \u2014 wat je op de dag zelf wilt teruglezen";
+    note.setAttribute("aria-label","Notities");
+    note.addEventListener("change", function(){
+      if (note.value !== (t.notes || "")) patch(t.id, { notes: note.value });
+    });
+    box.appendChild(note);
+
+    var row = el("div","editor__row");
     var date = document.createElement("input");
-    date.type="date"; date.value=t.date||""; date.setAttribute("aria-label","Datum");
+    date.type = "date"; date.value = t.date || ""; date.setAttribute("aria-label","Datum");
     date.addEventListener("change", function(){
-      patch(t.id,{date:date.value||""});
+      patch(t.id, { date: date.value || "" });
       if (date.value){ selected = date.value; weekStart = mondayOf(fromIso(date.value)); }
-      openEditor=null; render();
+      else selected = "";
+      openEditor = null; render();
     });
     var time = document.createElement("input");
-    time.type="time"; time.value=t.time||""; time.setAttribute("aria-label","Tijd");
-    time.addEventListener("change", function(){ patch(t.id,{time:time.value||""}); });
+    time.type = "time"; time.value = t.time || ""; time.setAttribute("aria-label","Tijd");
+    time.addEventListener("change", function(){ patch(t.id, { time: time.value || "" }); });
+    row.appendChild(date); row.appendChild(time);
 
-    var clear = el("button",null,"Datum weghalen");
-    clear.addEventListener("click", function(){ patch(t.id,{date:""}); openEditor=null; render(); });
-    var del = el("button",null,"Verwijderen");
-    del.addEventListener("click", function(){ openEditor=null; removeTask(t.id); });
+    if (t.date){
+      var clear = el("button", null, "Datum weghalen");
+      clear.addEventListener("click", function(){
+        patch(t.id, { date:"", time:"" }); openEditor = null; selected = ""; render();
+      });
+      row.appendChild(clear);
+    }
+    var del = el("button", null, "Verwijderen");
+    del.addEventListener("click", function(){ openEditor = null; removeTask(t.id); });
+    row.appendChild(del);
 
-    box.appendChild(name); box.appendChild(date); box.appendChild(time);
-    if (t.date) box.appendChild(clear);
-    box.appendChild(del);
+    box.appendChild(row);
     return box;
   }
 
   function addRow(dateStr){
     var form = el("div","add");
     var text = document.createElement("input");
-    text.type="text"; text.className="add__text";
+    text.type = "text"; text.className = "add__text";
     text.placeholder = dateStr ? "Toevoegen aan deze dag" : "Toevoegen zonder datum";
     text.setAttribute("aria-label","Nieuwe taak");
     var time = document.createElement("input");
-    time.type="time"; time.className="add__time"; time.setAttribute("aria-label","Tijd (optioneel)");
-    if (!dateStr) time.style.display="none";
+    time.type = "time"; time.className = "add__time"; time.setAttribute("aria-label","Tijd (optioneel)");
+    if (!dateStr) time.style.display = "none";
     var go = el("button","add__go","Toevoegen");
     function submit(){
       if (!text.value.trim()) return;
       addTask(text.value, dateStr, time.value);
-      text.value=""; time.value=""; text.focus();
+      text.value = ""; time.value = ""; text.focus();
     }
-    text.addEventListener("keydown", function(e){ if (e.key==="Enter") submit(); });
+    text.addEventListener("keydown", function(e){ if (e.key === "Enter") submit(); });
     go.addEventListener("click", submit);
     form.appendChild(text); form.appendChild(time); form.appendChild(go);
     return form;
   }
-
-  function renderWeek(){
-    var box = $("weekList"); box.textContent="";
-    for (var i=0;i<7;i++){
-      (function(){
-        var d = addDays(weekStart,i), ds = iso(d);
-        var open = forDate(ds).filter(function(t){ return !t.done; });
-        var band = el("button","band" + (ds===selected?" band--sel":"") + (ds===todayIso()?" band--today":""));
-        band.appendChild(el("span","band__day", SHORT[d.getDay()] + " " + d.getDate()));
-        var dots = el("span","band__dots");
-        open.slice(0,10).forEach(function(t){
-          var dot = el("i"); if (isLate(t)) dot.className="late"; dots.appendChild(dot);
-        });
-        band.appendChild(dots);
-        band.appendChild(el("span","band__n", open.length ? String(open.length) : "\u2014"));
-        band.addEventListener("click", function(){
-          selected=ds; openEditor=null; render();
-          window.scrollTo({top:0,behavior:"smooth"});
-        });
-        box.appendChild(band);
-      })();
-    }
-  }
-
-  function renderSomeday(){
-    var box = $("somedayList"); box.textContent="";
-    var list = someday();
-    if (!list.length) box.appendChild(el("p","empty","Dingen zonder datum staan hier. Geef er een datum aan en ze schuiven de week in."));
-    else box.appendChild(taskList(list));
-    box.appendChild(addRow(""));
-  }
-
-  /* ============ 8. exporteren ============ */
+/* ============ 8. exporteren ============ */
   function toIcs(){
     function stamp(d,t){
       var p=d.split("-");
@@ -761,17 +908,27 @@
     setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   }
 
+  
   /* ============ 9. schermen ============ */
-  function showAuth(){
-    $("appView").hidden = true;
-    $("authView").hidden = false;
-    paintAuth();
+  weekStart = mondayOf(new Date());
+  selected  = todayIso();
+
+  function openDay(dateStr){
+    selected = dateStr; view = "day"; openEditor = null;
+    try { history.pushState({ day: dateStr }, ""); } catch(e){}
+    render(); window.scrollTo(0,0);
   }
-  function showApp(){
-    $("authView").hidden = true;
-    $("appView").hidden = false;
-    render();
+  function goWeek(){
+    view = "week"; openEditor = null;
+    render(); window.scrollTo(0,0);
   }
+  window.addEventListener("popstate", function(){
+    if (view === "day"){ view = "week"; openEditor = null; render(); }
+  });
+
+  function showAuth(){ $("appView").hidden = true;  $("authView").hidden = false; paintAuth(); }
+  function showApp(){  $("authView").hidden = true; $("appView").hidden  = false; render(); }
+
   function paintAuth(){
     $("authTitle").textContent = signupMode ? "Account aanmaken" : "Inloggen";
     $("authGo").textContent    = signupMode ? "Account aanmaken" : "Inloggen";
@@ -780,7 +937,6 @@
     var b = el("button", null, signupMode ? "Ik heb al een account" : "Nog geen account? Maak er een aan");
     b.addEventListener("click", function(){ signupMode = !signupMode; authMsg(null); paintAuth(); });
     alt.appendChild(b);
-    $("authSkip").hidden = false;
   }
   function authMsg(text, ok){
     var m = $("authMsg");
@@ -794,47 +950,49 @@
     Promise.all([IDB.all(), IDB.getMeta("session")]).then(function(r){
       tasks = (r[0] || []).map(function(t){
         t.dirty = !!t.dirty; t.deleted = !!t.deleted; t.synced = !!t.synced;
+        if (typeof t.notes !== "string") t.notes = "";
         return t;
       });
       session = r[1] || null;
 
       if (session && session.refresh_token){
-        mode = "synced";
-        showApp();
+        mode = "synced"; showApp();
         if (navigator.onLine) sync();
       } else if (configured && !tasks.length){
         showAuth();
       } else {
-        mode = "local";
-        showApp();
+        mode = "local"; showApp();
       }
-    }).catch(function(e){
-      // IndexedDB geblokkeerd (privémodus): alles nog steeds bruikbaar, niets blijft bewaard
+    }).catch(function(){
       mode = "local"; showApp();
-      alert("Deze browser laat geen lokale opslag toe, waarschijnlijk door een privévenster. De agenda werkt, maar niets wordt bewaard.");
+      alert("Deze browser laat geen lokale opslag toe, waarschijnlijk door een priv\u00e9venster. De agenda werkt, maar niets wordt bewaard.");
     });
   }
 
   /* ============ 11. bediening ============ */
   $("prevWeek").addEventListener("click", function(){
-    weekStart = addDays(weekStart,-7); selected = iso(weekStart); openEditor=null; render();
+    weekStart = addDays(weekStart,-7); render();
   });
   $("nextWeek").addEventListener("click", function(){
-    weekStart = addDays(weekStart,7); selected = iso(weekStart); openEditor=null; render();
+    weekStart = addDays(weekStart,7); render();
   });
   $("todayBtn").addEventListener("click", function(){
-    weekStart = mondayOf(new Date()); selected = todayIso(); openEditor=null; render();
+    weekStart = mondayOf(new Date()); filterTag = null; goWeek();
   });
-  $("syncNow").addEventListener("click", function(){ syncErr=null; sync(); });
+  $("backBtn").addEventListener("click", function(){
+    if (history.state && history.state.day) history.back(); else goWeek();
+  });
+  $("filterClear").addEventListener("click", function(){ filterTag = null; render(); });
+  $("syncNow").addEventListener("click", function(){ syncErr = null; sync(); });
   $("signOut").addEventListener("click", function(){
     if (confirm("Uitloggen? Je agenda blijft op dit toestel staan.")) signOut();
   });
-  $("connectBtn").addEventListener("click", function(){ signupMode=false; showAuth(); });
+  $("connectBtn").addEventListener("click", function(){ signupMode = false; showAuth(); });
   $("exportBtn").addEventListener("click", function(){
     download("agenda.ics", toIcs(), "text/calendar");
   });
 
-  $("authSkip").addEventListener("click", function(){ mode="local"; showApp(); });
+  $("authSkip").addEventListener("click", function(){ mode = "local"; showApp(); });
   $("authGo").addEventListener("click", function(){
     var email = $("authEmail").value.trim(), pass = $("authPass").value;
     if (!email || !pass){ authMsg("Vul allebei de velden in."); return; }
@@ -850,7 +1008,6 @@
       }
       session.email = email;
       return IDB.setMeta("session", session).then(function(){
-        // lokale items die nog nooit gesynchroniseerd zijn, gaan mee naar het account
         tasks.forEach(function(t){ if (!t.synced) t.dirty = true; });
         return IDB.putMany(tasks);
       }).then(function(){
@@ -861,12 +1018,14 @@
     });
   });
 
-  window.addEventListener("online",  function(){ syncErr=null; paintSync(); sync(); });
+  window.addEventListener("online",  function(){ syncErr = null; paintSync(); sync(); });
   window.addEventListener("offline", paintSync);
   document.addEventListener("visibilitychange", function(){
-    if (!document.hidden && mode==="synced" && navigator.onLine) sync();
+    if (!document.hidden && mode === "synced" && navigator.onLine) sync();
   });
-  setInterval(function(){ if (mode==="synced" && !document.hidden && navigator.onLine) sync(); }, 60000);
+  setInterval(function(){
+    if (mode === "synced" && !document.hidden && navigator.onLine) sync();
+  }, 60000);
 
   var dayStamp = todayIso();
   setInterval(function(){
